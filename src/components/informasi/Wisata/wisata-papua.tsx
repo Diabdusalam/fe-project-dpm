@@ -163,46 +163,40 @@
 //     </section>
 //   );
 // }
-import { getBerandaBerita } from "@/query/get.berita.query";
+import { getWisataKeindahan } from "@/query/get.wisata_keindahan.query";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import { useEffect, useState } from "react";
-import CardBeritaTerkini from "./card-berita-terkini";
+import CardWisata from "./card-wisata-papua";
 // import { getBerandaBerita } from "@/query/get.beranda_berita.query";
 
 interface NewsItem {
   id: number;
-  title: string;
+  name: string;
   slug: string;
-  excerpt: string;
-  featured_image: string;
+  image: string;
+  location: string;
+  category: string | null;
+  description: string;
+  is_favorite: boolean;
+
   published_at: string;
   status: string;
-  is_favorite: boolean;
   author: string;
-  category: string;
 }
 
-export default function BeritaTerkini() {
+export default function WisataPapuaTengah() {
   const [news, setNews] = useState<NewsItem[]>([]);
   const [q, setQ] = useState("");
   const [page, setPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
   const [loading, setLoading] = useState(true);
 
-  const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("id-ID", {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-    });
-  };
-
   useEffect(() => {
     const fetchNews = async () => {
       try {
         setLoading(true);
 
-        const response = await getBerandaBerita({
+        const response = await getWisataKeindahan({
           q,
           page,
         });
@@ -226,7 +220,7 @@ export default function BeritaTerkini() {
         <div className="flex items-start justify-between mb-8 flex-wrap gap-4">
           <div>
             <h1 className="text-3xl font-extrabold text-[#1e3a5f]">
-              Berita <span className="text-blue-600">Terkini</span>
+              Wisata <span className="text-blue-600">Papua Tengah</span>
             </h1>
             {/* <p className="text-slate-500 text-sm mt-2">
               Informasi terbaru seputar kegiatan, layanan,
@@ -287,14 +281,17 @@ export default function BeritaTerkini() {
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-4 gap-5 mb-10">
             {news.map((item) => (
-              <CardBeritaTerkini
+              <CardWisata
                 key={item.id}
-                item={{
-                  id: item.slug,
-                  kategori: item.category,
-                  tanggal: formatDate(item.published_at),
-                  judul: item.title,
-                  img: item.featured_image,
+                dest={{
+                  id: item.id,
+                  name: item.name,
+                  slug: item.slug,
+                  image: item.image,
+                  location: item.location,
+                  description: item.description,
+                  category: item.category,
+                  // category: string | nullString,
                   // slug: item.slug,
                 }}
               />

@@ -4,16 +4,20 @@
 import { components, hooks, utils } from '@generouted/react-router/client'
 
 export type Path =
+  | `/`
   | `/aplikasi`
   | `/beranda`
   | `/informasi/berita`
   | `/informasi/berita/:id`
+  | `/informasi/wisata`
+  | `/informasi/wisata/:id`
   | `/kontak`
   | `/pelayanan`
   | `/tentang-kami`
 
 export type Params = {
   '/informasi/berita/:id': { id: string }
+  '/informasi/wisata/:id': { id: string }
 }
 
 export type ModalPath = never

@@ -11,7 +11,7 @@ const badgeColor = {
 };
 
 interface BeritaItem {
-  id: number;
+  id: string;
   kategori: string;
   tanggal: string;
   judul: string;
@@ -44,8 +44,7 @@ export default function CardBeritaTerkini({ item }: { item: BeritaItem }) {
           {item.judul}
         </h3>
         <NavLink
-          to={`/informasi/berita/cobadulu`}
-          // to={ `/informasi/berita/${item.id}` }
+          to={`/informasi/berita/${item.id}`}
           className="flex items-center gap-1 text-blue-600 text-xs font-semibold hover:text-blue-800 transition-colors"
         >
           Baca Selengkapnya <ArrowRight className="w-3.5 h-3.5" />
