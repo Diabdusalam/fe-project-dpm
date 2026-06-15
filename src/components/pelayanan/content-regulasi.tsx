@@ -13,11 +13,9 @@ export default function ContentRegulasi() {
     const fetchData = async () => {
       try {
         const result = await getRegulationPelayanan();
-        console.log(result);
+
         setData(result?.data || []);
-      } catch (error) {
-        console.error("Failed fetch sliders:", error);
-      }
+      } catch (error) {}
     };
 
     fetchData();

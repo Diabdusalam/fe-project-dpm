@@ -7,6 +7,6 @@ export type KirimPesanPayload = {
 };
 export const postKirimPesan = async (payload: KirimPesanPayload) => {
   const response = await axiosInstance.post("/contact", payload);
-  console.log(response.data);
+
   return response.data;
 };

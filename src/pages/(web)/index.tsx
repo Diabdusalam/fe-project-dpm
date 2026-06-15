@@ -17,12 +17,5 @@ export default function Beranda() {
       <ContentBerita />
       <ContentKeindahan />
     </main>
-    // <div className="p-4 font-black justify-center items-center">
-    //   <div className="text-center">
-    //     {" "}
-    //     <h1 className="text-2xl font-bold mb-4">Beranda</h1>
-    //     <p>Selamat datang di halaman beranda!</p>
-    //   </div>
-    // </div>
   );
 }
