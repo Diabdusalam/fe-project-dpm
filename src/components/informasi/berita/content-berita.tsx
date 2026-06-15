@@ -1,494 +1,19 @@
-// import { getBerandaBerita } from "@/query/get.berita.query";
-// import { getSlugBerita } from "@/query/get.slug_berita.query.";
-// import {
-//   ArrowRight,
-//   Calendar,
-//   ChevronRight,
-//   Clock,
-//   MessageCircle,
-//   User,
-// } from "lucide-react";
-// import { useEffect, useState } from "react";
-// import { NavLink, useParams } from "react-router-dom";
-// // import { getSlugBerita } from "@/query/get.slug_berita.query";
-
-// interface NewsDetail {
-//   title: string;
-//   slug: string;
-//   excerpt: string;
-//   content: string;
-//   featured_image: string;
-//   published_at: string;
-//   author: string;
-//   category: string;
-// }
-
-// const sidebarBerita = [
-//   {
-//     id: 1,
-//     img: "https://placehold.co/80x70/1a3a5c/ffffff?text=Berita",
-//     title: "Kawal Sukses Usaha di Otsus: Mara, Kecil, Sampai Besar",
-//     date: "02 Maret 2026",
-//   },
-//   {
-//     id: 2,
-//     img: "https://placehold.co/80x70/2d6a9f/ffffff?text=PKK",
-//     title: "PKK Polda Gelar Me'nub'e Budi Karya Bersama Polwan Polri...",
-//     date: "02 Maret 2026",
-//   },
-// ];
-
-// export default function ContentBerita() {
-//   const { id } = useParams();
-
-//   const [news, setNews] = useState<NewsDetail | null>(null);
-//   const [sideNews, setSideNews] = useState<NewsDetail[]>([]);
-//   const [loading, setLoading] = useState(true);
-
-//   const formatDate = (dateString: string) => {
-//     return new Date(dateString).toLocaleDateString("id-ID", {
-//       day: "numeric",
-//       month: "long",
-//       year: "numeric",
-//     });
-//   };
-
-//   useEffect(() => {
-//     const fetchDetail = async () => {
-//       try {
-//         setLoading(true);
-//         const response = await getSlugBerita(id || "");
-//         const response_berita = await getBerandaBerita({ page: 1 });
-//         setSideNews(response_berita.data.data || []);
-//         setNews(response.data);
-//       } catch (error) {
-//         console.error("Failed fetch detail news:", error);
-//         setNews(null);
-//       } finally {
-//         setLoading(false);
-//       }
-//     };
-
-//     fetchDetail();
-//   }, [id]);
-
-//   if (loading) {
-//     return <div style={{ padding: 40 }}>Loading...</div>;
-//   }
-
-//   if (!news) {
-//     return <div style={{ padding: 40 }}>Berita tidak ditemukan</div>;
-//   }
-
-//   return (
-//     <div
-//       style={{
-//         fontFamily: "'Plus Jakarta Sans', 'Noto Sans', sans-serif",
-//         background: "#f7f8fa",
-//         minHeight: "100vh",
-//       }}
-//     >
-//       <style>{`
-//         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-
-//         * {
-//           box-sizing: border-box;
-//           margin: 0;
-//           padding: 0;
-//         }
-
-//         a {
-//           text-decoration: none;
-//           color: inherit;
-//         }
-
-//         .article-content p {
-//           margin-bottom: 16px;
-//         }
-
-//         .article-content img {
-//           max-width: 100% !important;
-//           height: auto !important;
-//           border-radius: 8px;
-//           margin: 16px 0;
-//         }
-
-//         .article-content blockquote {
-//           border-left: 4px solid #2d6a9f;
-//           padding: 14px 16px;
-//           margin: 20px 0;
-//           color: #1f2937;
-//           font-style: italic;
-//           background: #f0f7ff;
-//           border-radius: 0 8px 8px 0;
-//         }
-
-//         .article-content a {
-//           color: #2563eb;
-//           text-decoration: underline;
-//         }
-//       `}</style>
-
-//       <div
-//         style={{
-//           background: "#fff",
-//           borderBottom: "1px solid #e8edf2",
-//           padding: "20px 32px",
-//         }}
-//       >
-//         <div
-//           style={{
-//             maxWidth: 1200,
-//             margin: "0 auto",
-//             display: "flex",
-//             justifyContent: "space-between",
-//             alignItems: "flex-start",
-//           }}
-//         >
-//           <div>
-//             <h1
-//               style={{
-//                 fontSize: 28,
-//                 fontWeight: 800,
-//                 color: "#111827",
-//                 marginBottom: 6,
-//               }}
-//             >
-//               Berita <span style={{ color: "#2d6a9f" }}>Terkini</span>
-//             </h1>
-
-//             <nav
-//               style={{
-//                 display: "flex",
-//                 alignItems: "center",
-//                 gap: 6,
-//                 fontSize: 13,
-//                 color: "#6b7280",
-//                 marginBottom: 8,
-//               }}
-//             >
-//               <span>Beranda</span>
-//               <ChevronRight size={13} />
-//               <span style={{ color: "#2d6a9f", fontWeight: 500 }}>
-//                 Berita Terkini
-//               </span>
-//             </nav>
-
-//             {/* <p style={{ fontSize: 14, color: "#6b7280" }}>
-//               Informasi terbaru seputar kegiatan, layanan, dan program DPM-PTSP
-//               Papua Tengah.
-//             </p> */}
-//           </div>
-
-//           {/* <button
-//             onClick={() => window.history.back()}
-//             style={{
-//               display: "flex",
-//               alignItems: "center",
-//               gap: 8,
-//               padding: "9px 18px",
-//               border: "1.5px solid #d1d5db",
-//               borderRadius: 8,
-//               background: "#fff",
-//               fontSize: 13,
-//               fontWeight: 500,
-//               color: "#374151",
-//               cursor: "pointer",
-//               whiteSpace: "nowrap",
-//             }}
-//           >
-//             <ArrowLeft size={14} /> Kembali ke Beranda
-//           </button> */}
-//         </div>
-//       </div>
-
-//       <div
-//         style={{
-//           maxWidth: 1200,
-//           margin: "0 auto",
-//           padding: "28px 32px",
-//           display: "grid",
-//           gridTemplateColumns: "300px 1fr",
-//           gap: 28,
-//         }}
-//       >
-//         <aside>
-//           <div
-//             style={{
-//               background: "#fff",
-//               borderRadius: 12,
-//               border: "1px solid #e8edf2",
-//               overflow: "hidden",
-//             }}
-//           >
-//             <div
-//               style={{
-//                 padding: "16px 20px",
-//                 borderBottom: "1px solid #e8edf2",
-//               }}
-//             >
-//               <h2 style={{ fontWeight: 700, fontSize: 16, color: "#111827" }}>
-//                 Berita Terbaru
-//               </h2>
-//             </div>
-
-//             <div>
-//               {sideNews.map((item, i) => (
-//                 <div
-//                   key={i}
-//                   style={{
-//                     display: "flex",
-//                     gap: 12,
-//                     padding: "14px 16px",
-//                     borderBottom:
-//                       i < sidebarBerita.length - 1
-//                         ? "1px solid #f0f2f5"
-//                         : "none",
-//                     cursor: "pointer",
-//                   }}
-//                 >
-//                   <img
-//                     src={item.featured_image}
-//                     alt={item.title}
-//                     style={{
-//                       width: 80,
-//                       height: 60,
-//                       borderRadius: 6,
-//                       objectFit: "cover",
-//                       flexShrink: 0,
-//                     }}
-//                   />
-
-//                   <div>
-//                     <p
-//                       style={{
-//                         fontSize: 13,
-//                         fontWeight: 600,
-//                         color: "#1f2937",
-//                         lineHeight: 1.4,
-//                         marginBottom: 6,
-//                       }}
-//                     >
-//                       {item.title}
-//                     </p>
-
-//                     <span
-//                       style={{
-//                         display: "flex",
-//                         alignItems: "center",
-//                         gap: 4,
-//                         fontSize: 11,
-//                         color: "#9ca3af",
-//                       }}
-//                     >
-//                       <Calendar size={11} /> {formatDate(item.published_at)}
-//                     </span>
-//                   </div>
-//                 </div>
-//               ))}
-//             </div>
-
-//             <div style={{ padding: 16 }}>
-//               <NavLink
-//                 to="/informasi/berita"
-//                 style={{
-//                   width: "100%",
-//                   padding: "10px",
-//                   border: "1.5px solid #e5e7eb",
-//                   borderRadius: 8,
-//                   background: "#fff",
-//                   fontSize: 13,
-//                   fontWeight: 500,
-//                   color: "#374151",
-//                   cursor: "pointer",
-//                   display: "flex",
-//                   alignItems: "center",
-//                   justifyContent: "center",
-//                   gap: 8,
-//                 }}
-//               >
-//                 Lihat Semua Berita <ArrowRight size={14} />
-//               </NavLink>
-//             </div>
-//           </div>
-//         </aside>
-
-//         <main>
-//           <div
-//             style={{
-//               background: "#fff",
-//               borderRadius: 12,
-//               border: "1px solid #e8edf2",
-//               padding: "28px 32px",
-//             }}
-//           >
-//             <div
-//               style={{
-//                 display: "flex",
-//                 alignItems: "center",
-//                 gap: 10,
-//                 marginBottom: 14,
-//               }}
-//             >
-//               <span
-//                 style={{
-//                   background: "#dbeafe",
-//                   color: "#1d4ed8",
-//                   fontSize: 11,
-//                   fontWeight: 700,
-//                   padding: "3px 10px",
-//                   borderRadius: 4,
-//                   letterSpacing: "0.05em",
-//                   textTransform: "uppercase",
-//                 }}
-//               >
-//                 {news.category}
-//               </span>
-
-//               <span style={{ color: "#9ca3af", fontSize: 13 }}>•</span>
-
-//               <span style={{ fontSize: 13, color: "#6b7280" }}>
-//                 {formatDate(news.published_at)}
-//               </span>
-//             </div>
-
-//             <h1
-//               style={{
-//                 fontSize: 28,
-//                 fontWeight: 800,
-//                 color: "#111827",
-//                 lineHeight: 1.3,
-//                 marginBottom: 16,
-//               }}
-//             >
-//               {news.title}
-//             </h1>
-
-//             <div
-//               style={{
-//                 display: "flex",
-//                 alignItems: "center",
-//                 justifyContent: "space-between",
-//                 marginBottom: 20,
-//                 paddingBottom: 16,
-//                 borderBottom: "1px solid #f0f2f5",
-//               }}
-//             >
-//               <div style={{ display: "flex", gap: 16 }}>
-//                 <span
-//                   style={{
-//                     display: "flex",
-//                     alignItems: "center",
-//                     gap: 5,
-//                     fontSize: 13,
-//                     color: "#6b7280",
-//                   }}
-//                 >
-//                   <User size={13} /> {news.author}
-//                 </span>
-
-//                 <span
-//                   style={{
-//                     display: "flex",
-//                     alignItems: "center",
-//                     gap: 5,
-//                     fontSize: 13,
-//                     color: "#6b7280",
-//                   }}
-//                 >
-//                   <Clock size={13} /> 5 menit baca
-//                 </span>
-//               </div>
-
-//               <div style={{ display: "flex", gap: 8 }}>
-//                 <button
-//                   style={{
-//                     width: 32,
-//                     height: 32,
-//                     borderRadius: 6,
-//                     background: "#1877f2",
-//                     border: "none",
-//                     cursor: "pointer",
-//                     display: "flex",
-//                     alignItems: "center",
-//                     justifyContent: "center",
-//                     color: "#fff",
-//                   }}
-//                 >
-//                   <Clock size={14} />
-//                 </button>
-
-//                 <button
-//                   style={{
-//                     width: 32,
-//                     height: 32,
-//                     borderRadius: 6,
-//                     background: "#111",
-//                     border: "none",
-//                     cursor: "pointer",
-//                     display: "flex",
-//                     alignItems: "center",
-//                     justifyContent: "center",
-//                     color: "#fff",
-//                   }}
-//                 >
-//                   <Clock size={14} />
-//                 </button>
-
-//                 <button
-//                   style={{
-//                     width: 32,
-//                     height: 32,
-//                     borderRadius: 6,
-//                     background: "#25d366",
-//                     border: "none",
-//                     cursor: "pointer",
-//                     display: "flex",
-//                     alignItems: "center",
-//                     justifyContent: "center",
-//                     color: "#fff",
-//                   }}
-//                 >
-//                   <MessageCircle size={14} />
-//                 </button>
-//               </div>
-//             </div>
-
-//             <img
-//               src={news.featured_image}
-//               alt={news.title}
-//               style={{
-//                 width: "100%",
-//                 borderRadius: 10,
-//                 marginBottom: 22,
-//                 objectFit: "cover",
-//               }}
-//               onError={(e) => {
-//                 (e.target as HTMLImageElement).src =
-//                   "https://placehold.co/760x400/e2e8f0/94a3b8?text=Berita";
-//               }}
-//             />
-
-//             <div
-//               className="article-content"
-//               style={{
-//                 fontSize: 15,
-//                 lineHeight: 1.85,
-//                 color: "#374151",
-//               }}
-//               dangerouslySetInnerHTML={{ __html: news.content }}
-//             />
-//           </div>
-//         </main>
-//       </div>
-//     </div>
-//   );
-// }
 import { getBerandaBerita } from "@/query/get.berita.query";
 import { getSlugBerita } from "@/query/get.slug_berita.query.";
 import { ArrowRight, Calendar, ChevronRight, Clock, User } from "lucide-react";
 import { useEffect, useState } from "react";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import { NavLink, useParams } from "react-router-dom";
+
+interface SeoMeta {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: string;
+  robots?: string;
+  keywords?: string;
+  json_ld?: Record<string, unknown>;
+}
 
 interface NewsDetail {
   title: string;
@@ -499,9 +24,19 @@ interface NewsDetail {
   published_at: string;
   author: string;
   category: string;
+  tags?: string[];
+  seo_meta?: SeoMeta;
 }
 
 export default function ContentBerita() {
+  return (
+    <HelmetProvider>
+      <ContentBeritaPage />
+    </HelmetProvider>
+  );
+}
+
+function ContentBeritaPage() {
   const { id } = useParams();
 
   const [news, setNews] = useState<NewsDetail | null>(null);
@@ -515,14 +50,16 @@ export default function ContentBerita() {
       year: "numeric",
     });
   };
+
   const getReadingTime = (html: string) => {
-    const text = html.replace(/<[^>]*>/g, " ");
-    const words = text.trim().split(/\s+/).length;
+    const text = html.replace(/<[^>]*>/g, " ").trim();
+    const words = text ? text.split(/\s+/).length : 0;
 
     const minutes = Math.max(1, Math.ceil(words / 200));
 
     return `${minutes} menit baca`;
   };
+
   useEffect(() => {
     const fetchDetail = async () => {
       try {
@@ -552,6 +89,24 @@ export default function ContentBerita() {
     return <div className="p-10">Berita tidak ditemukan</div>;
   }
 
+  const seo = news.seo_meta;
+
+  const seoTitle = seo?.title || `${news.title} - Papua Tengah`;
+  const seoDescription = seo?.description || news.excerpt || news.title;
+  const seoImage = seo?.image || news.featured_image;
+  const seoRobots = seo?.robots || "index, follow";
+  const seoKeywords = seo?.keywords || news.title;
+
+  const canonicalUrl = `${window.location.origin}/informasi/berita/${news.slug}`;
+
+  const jsonLd = seo?.json_ld
+    ? {
+        ...seo.json_ld,
+        url: canonicalUrl,
+        mainEntityOfPage: canonicalUrl,
+      }
+    : null;
+
   return (
     <div
       className="min-h-screen bg-[#f7f8fa]"
@@ -559,6 +114,35 @@ export default function ContentBerita() {
         fontFamily: "'Plus Jakarta Sans', 'Noto Sans', sans-serif",
       }}
     >
+      <Helmet>
+        <title>{seoTitle}</title>
+
+        <meta name="description" content={seoDescription} />
+        <meta name="robots" content={seoRobots} />
+        <meta name="keywords" content={seoKeywords} />
+
+        <link rel="canonical" href={canonicalUrl} />
+
+        <meta property="og:title" content={seoTitle} />
+        <meta property="og:description" content={seoDescription} />
+        <meta property="og:image" content={seoImage} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:type" content="article" />
+
+        <meta property="article:published_time" content={news.published_at} />
+        <meta property="article:author" content={news.author || "Admin"} />
+        <meta property="article:section" content={news.category} />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={seoTitle} />
+        <meta name="twitter:description" content={seoDescription} />
+        <meta name="twitter:image" content={seoImage} />
+
+        {jsonLd && (
+          <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+        )}
+      </Helmet>
+
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
@@ -705,29 +289,6 @@ export default function ContentBerita() {
                   <Clock size={13} /> {getReadingTime(news.content)}
                 </span>
               </div>
-
-              {/* <div className="flex gap-2">
-                <button
-                  type="button"
-                  className="w-8 h-8 rounded-md bg-[#1877f2] text-white flex items-center justify-center"
-                >
-                  <Clock size={14} />
-                </button>
-
-                <button
-                  type="button"
-                  className="w-8 h-8 rounded-md bg-black text-white flex items-center justify-center"
-                >
-                  <Clock size={14} />
-                </button>
-
-                <button
-                  type="button"
-                  className="w-8 h-8 rounded-md bg-[#25d366] text-white flex items-center justify-center"
-                >
-                  <MessageCircle size={14} />
-                </button>
-              </div> */}
             </div>
 
             <img
