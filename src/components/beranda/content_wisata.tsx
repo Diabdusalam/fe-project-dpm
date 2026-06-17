@@ -421,7 +421,7 @@ export default function ContentKeindahan() {
             </p>
 
             <a
-              href={`/wisata/${featured.slug}`}
+              href={`/informasi/wisata/${featured.slug}`}
               className="inline-flex items-center gap-2 bg-white text-blue-700 text-xs font-bold px-5 py-2.5 rounded-full w-fit hover:bg-blue-50 transition-colors"
             >
               Lihat Detail →
@@ -498,7 +498,7 @@ export default function ContentKeindahan() {
                     </p>
 
                     <a
-                      href={`/wisata/${dest.slug}`}
+                      href={`/informasi/wisata/${dest.slug}`}
                       className="text-blue-500 text-xs font-medium flex items-center gap-1 hover:underline mt-auto"
                     >
                       Lihat Detail →
